@@ -4,6 +4,7 @@ FROM python:3.10-slim
 RUN apt-get update && apt-get install -y \
     wget \
     gnupg \
+    curl \
     fonts-liberation \
     libappindicator3-1 \
     libasound2 \
@@ -31,11 +32,12 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # 2. Instalar Chrome desde paquete .deb descargado directamente
-RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-    && apt-get install -y ./google-chrome-stable_current_amd64.deb \
-    || apt-get install -f -y \
+# Se usa curl para la descarga y dpkg para la instalación, seguido de apt-get -f install para resolver dependencias.
+RUN curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /tmp/google-chrome-stable_current_amd64.deb \
+    && dpkg -i /tmp/google-chrome-stable_current_amd64.deb \
+    && apt-get install -f -y \
     # Soluciona dependencias faltantes
-    && rm google-chrome-stable_current_amd64.deb \
+    && rm /tmp/google-chrome-stable_current_amd64.deb \
     && google-chrome --version
 
 # 3. Instalar chromedriver compatible
