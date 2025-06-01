@@ -33,7 +33,8 @@ RUN apt-get update && apt-get install -y \
 # 2. Instalar Chrome desde paquete .deb descargado directamente
 RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
     && apt-get install -y ./google-chrome-stable_current_amd64.deb \
-    || apt-get install -f -y \  # Soluciona dependencias faltantes
+    || apt-get install -f -y \
+    # Soluciona dependencias faltantes
     && rm google-chrome-stable_current_amd64.deb \
     && google-chrome --version
 
