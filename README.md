@@ -1,7 +1,3 @@
-No problem\! Here's your `README.md` in Markdown format, ready for GitHub:
-
------
-
 # Web Scraper API (FastAPI + Selenium + Gemini)
 
 -----
